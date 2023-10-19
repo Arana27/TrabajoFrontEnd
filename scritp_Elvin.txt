@@ -1,0 +1,56 @@
+-- Crear la base de datos
+CREATE DATABASE Concesionario;
+GO
+
+-- Usar la base de datos
+USE Concesionario;
+GO
+
+-- Crear la tabla "Autos"
+CREATE TABLE Autos (
+    ID INT PRIMARY KEY IDENTITY(1,1),
+    Marca NVARCHAR(50),
+    Modelo NVARCHAR(50),
+    Precio DECIMAL(10, 2)
+);
+GO
+-- crear un auto
+CREATE PROCEDURE CrearAuto
+    @Marca NVARCHAR(50),
+    @Modelo NVARCHAR(50),
+    @Precio DECIMAL(10, 2)
+AS
+BEGIN
+    INSERT INTO Autos (Marca, Modelo, Precio)
+    VALUES (@Marca, @Modelo, @Precio);
+END;
+GO
+-- mostrar todos los autos un auto
+CREATE PROCEDURE LeerAutos
+AS
+BEGIN
+    SELECT * FROM Autos;
+END;
+GO
+-- actualizar datos de un auto
+CREATE PROCEDURE ActualizarAuto
+    @ID INT,
+    @Marca NVARCHAR(50),
+    @Modelo NVARCHAR(50),
+    @Precio DECIMAL(10, 2)
+AS
+BEGIN
+    UPDATE Autos
+    SET Marca = @Marca, Modelo = @Modelo, Precio = @Precio
+    WHERE ID = @ID;
+END;
+GO
+-- eliminar un auto
+CREATE PROCEDURE EliminarAuto
+    @ID INT
+AS
+BEGIN
+    DELETE FROM Autos
+    WHERE ID = @ID;
+END;
+GO
